@@ -1,0 +1,4 @@
+.DS_Store
+__pycache__/
+# originais das fotos (vieram pelo WhatsApp do cliente) e os recortes de trabalho
+assets/src/fotos/

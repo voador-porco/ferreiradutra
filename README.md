@@ -1,0 +1,28 @@
+# Ferreira e Dutra Advogados
+
+Site do escritório Ferreira e Dutra Advogados (Uberlândia, MG): uma página central e uma página por área do direito, cada uma pronta para receber tráfego pago.
+Estático, sem dependências: `python3 build.py` gera as páginas e a ponte `/obrigado`, que leva ao WhatsApp com a mensagem da área.
+
+## Páginas
+- `/` página central: o escritório, as áreas, os diferenciais, como funciona, o alcance e as dúvidas.
+- `/criminal`, `/inventario`, `/familia`, `/civel`, `/transito`, `/administrativo`: uma landing por área.
+- `/obrigado?c=<botão>&a=<área>`: registra a conversão no `dataLayer` (com o contexto e a área) e abre o WhatsApp com a mensagem daquela área.
+
+## De onde veio cada coisa
+- **Textos:** `conteudo.py`, a partir do formulário de público-alvo que o Luiz respondeu. Não há promessa de resultado, preço, consulta grátis nem depoimento, por causa do Provimento 205/2021 da OAB.
+- **Fotos:** `python3 tools/fotos.py` gera os retratos, os recortes do topo e o ícone. Os originais ficam em `assets/src/fotos/`, fora do git.
+  - A foto da Ludmilla veio cortada na testa e nos braços. O Firefly completou a imagem (`ludmilla-expandida.jpg`) e depois o fundo foi tirado.
+  - Nos recortes, a borda é contraída e escurecida para não sobrar a linha branca do fundo antigo.
+- **Nome e letras a traço:** `tools/letreiro.py` transforma a Cormorant Garamond em contorno SVG. A página não carrega fonte serifada.
+- **Mapa:** `tools/mapa.py`, contorno do Brasil da Natural Earth (domínio público).
+- **Imagem de compartilhamento:** `python3 tools/og.py`, com o servidor local ligado.
+
+## Falta o cliente mandar (aparece como [A PREENCHER])
+- Número do WhatsApp (`WHATSAPP` e `TEL_VER` no `build.py`). Sem ele, os botões abrem o WhatsApp sem destinatário.
+- Sobrenome da Ludmilla e o número da OAB dos dois (`SOCIOS` no `build.py`).
+- Endereço do escritório, se quiserem mostrar.
+- O advogado precisa ler as páginas e confirmar os prazos e regras citados, como os 2 meses do inventário, os 15 dias úteis do cível e a cassação da CNH por 2 anos.
+- Domínio: depois de ligar, trocar `DOMINIO` e virar `INDEXAR = True`.
+
+## Prévia local
+`python3 tools/serve.py 4235`

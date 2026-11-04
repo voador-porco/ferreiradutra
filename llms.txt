@@ -1,0 +1,23 @@
+# Ferreira e Dutra Advogados
+
+> Escritório de advocacia em Uberlândia, MG, com atendimento em todo o Brasil por processo eletrônico.
+
+## Áreas
+- [Direito Criminal](https://ferreiradutra.vercel.app/criminal): Defesa desde a prisão em flagrante até o júri, os recursos e o cumprimento da pena.
+- [Inventário e Sucessões](https://ferreiradutra.vercel.app/inventario): Inventário em cartório ou na Justiça, partilha de bens e testamento, também quando a família não se entende.
+- [Direito de Família](https://ferreiradutra.vercel.app/familia): Divórcio, pensão alimentícia, guarda e convivência com os filhos e adoção de criança e adolescente.
+- [Direito Cível](https://ferreiradutra.vercel.app/civel): Defesa em processos e ações do dia a dia: cobrança, indenização, contratos, consumidor e despejo.
+- [Direito de Trânsito](https://ferreiradutra.vercel.app/transito): CNH suspensa ou cassada, recursos de multa, processo no Detran, acidentes e crimes de trânsito.
+- [Direito Administrativo](https://ferreiradutra.vercel.app/administrativo): Defesa de servidor público em PAD e sindicância e recursos contra decisões de órgãos públicos.
+
+## Perguntas frequentes
+- Vocês atendem fora de Uberlândia? Sim. Quando o processo é eletrônico, atuamos em qualquer lugar do Brasil, e a conversa com você pode ser toda a distância. Se algum ato exigir presença, avisamos antes de começar.
+- Como são combinados os honorários? Depois de entender o seu caso, apresentamos a proposta de honorários por escrito. Tudo fica em contrato, assinado antes de o trabalho começar.
+- Vocês prometem resultado? Não. Quem decide é o juiz ou o órgão responsável, e a ética da advocacia proíbe prometer resultado. O nosso compromisso é com o trabalho: estudo do caso, técnica e acompanhamento em cada etapa.
+- Alguém da minha família foi preso. O que eu faço? Fale com o escritório o quanto antes, com o nome completo da pessoa e o local onde ela está. A defesa começa na audiência de custódia, quando o juiz decide se a prisão continua.
+- O que eu conto fica em sigilo? Sim. O sigilo entre advogado e cliente é um dever profissional. O que você conta fica entre você e o escritório.
+- O que levar para a primeira conversa? Um resumo do que aconteceu e os documentos que você tiver. Na página de cada área há uma lista do que separar.
+
+## Contato
+WhatsApp: [A PREENCHER]
+Site: https://ferreiradutra.vercel.app/
