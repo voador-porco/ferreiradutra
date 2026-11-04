@@ -13,13 +13,14 @@ Estático, sem dependências: `python3 build.py` gera as páginas e a ponte `/ob
 - **Fotos:** `python3 tools/fotos.py` gera os retratos, os recortes do topo e o ícone. Os originais ficam em `assets/src/fotos/`, fora do git.
   - A foto da Ludmilla veio cortada na testa e nos braços. O Firefly completou a imagem (`ludmilla-expandida.jpg`) e depois o fundo foi tirado.
   - Nos recortes, a borda é contraída e escurecida para não sobrar a linha branca do fundo antigo.
+- **Fundos:** gerados no ChatGPT (originais em `assets/src/geradas/`, fora do git), em 16:9 e, na página central, também em 4:5 para o celular. `python3 tools/fundos.py` gera os WebP. Sempre com véu escuro por cima, para o texto ler bem.
 - **Nome e letras a traço:** `tools/letreiro.py` transforma a Cormorant Garamond em contorno SVG. A página não carrega fonte serifada.
 - **Mapa:** `tools/mapa.py`, contorno do Brasil da Natural Earth (domínio público).
 - **Imagem de compartilhamento:** `python3 tools/og.py`, com o servidor local ligado.
 
 ## Falta o cliente mandar (aparece como [A PREENCHER])
 - Número do WhatsApp (`WHATSAPP` e `TEL_VER` no `build.py`). Sem ele, os botões abrem o WhatsApp sem destinatário.
-- Sobrenome da Ludmilla e o número da OAB dos dois (`SOCIOS` no `build.py`).
+- Número da OAB dos dois (`SOCIOS` no `build.py`). Confirmar também se o nome completo da Ludmilla é só "Ludmilla Ferreira".
 - Endereço do escritório, se quiserem mostrar.
 - O advogado precisa ler as páginas e confirmar os prazos e regras citados, como os 2 meses do inventário, os 15 dias úteis do cível e a cassação da CNH por 2 anos.
 - Domínio: depois de ligar, trocar `DOMINIO` e virar `INDEXAR = True`.

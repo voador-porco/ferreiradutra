@@ -49,8 +49,9 @@ ESCRITORIO = {
     "sobre_h2": "Quem cuida do seu caso",
     "sobre": [
         "A Ferreira e Dutra Advogados é um escritório de Uberlândia com dois "
-        "sócios, um advogado e uma advogada. A área criminal é o centro do "
-        "nosso trabalho, ao lado de família e sucessões e do direito cível.",
+        "sócios, Ludmilla Ferreira e Luiz Fellipy Dutra e Sousa. A área "
+        "criminal é o centro do nosso trabalho, ao lado de família e sucessões "
+        "e do direito cível.",
         "Trabalhamos para solucionar problemas jurídicos: uma prisão, um "
         "inventário, um divórcio, a defesa em um processo. Você entende o que "
         "está acontecendo no seu caso, explicado em palavras simples, sem "

@@ -25,9 +25,9 @@ WHATSAPP = ""                    # [A PREENCHER] número com DDI e DDD, só díg
 TEL_VER = "[A PREENCHER]"        # o mesmo número, para leitura
 NOME = "Ferreira e Dutra Advogados"
 CIDADE = "Uberlândia, MG"
-SOCIOS = [  # (nome, papel, OAB, foto)
+SOCIOS = [  # (nome, papel, OAB, foto). Ordem do nome do escritório: Ferreira (Ludmilla, sobre o F) e Dutra (Luiz, sobre o D)
+    ("Ludmilla Ferreira", "Advogada sócia", "OAB/MG [A PREENCHER]", "ludmilla"),
     ("Luiz Fellipy Dutra e Sousa", "Advogado sócio", "OAB/MG [A PREENCHER]", "luiz"),
-    ("Ludmilla", "Advogada sócia", "OAB/MG [A PREENCHER]", "ludmilla"),   # [A PREENCHER] sobrenome
 ]
 HERO_H1 = "Criminal, família, sucessões e cível."
 CSS, JS = RAIZ / "assets/css/site.css", RAIZ / "assets/js/site.js"
@@ -100,7 +100,22 @@ def foto(nome, alt, sizes, lazy=True, larguras=(480, 720, 960), classe="", sufix
     lz = ' loading="lazy"' if lazy else ' fetchpriority="high"'
     cl = f' class="{classe}"' if classe else ""
     return (f'<img{cl} src="/assets/img/fotos/{nome}-{larguras[-1]}.webp" srcset="{srcset}" sizes="{sizes}" alt="{e(alt)}" '
-            f'width="{w}" height="{h}"{lz} decoding="async">')
+            f'width="{w}" height="{h}"{lz} decoding="{"async" if lazy else "sync"}">')
+
+
+def fundo(nome, classe, lazy=True):
+    """Fundo gerado (tools/fundos.py): 16:9 no computador e, quando existe, 4:5 no celular. Sem o arquivo, não entra nada."""
+    pasta = RAIZ / "assets/img/fundos"
+    if not (pasta / f"{nome}-1600.webp").exists():
+        return ""
+    cel = ""
+    if (pasta / f"{nome}-m-900.webp").exists():
+        cel = (f'<source media="(max-width:760px)" srcset="/assets/img/fundos/{nome}-m-640.webp 640w, '
+               f'/assets/img/fundos/{nome}-m-900.webp 900w" sizes="100vw">')
+    lz = ' loading="lazy"' if lazy else ""
+    return (f'<div class="{classe}" aria-hidden="true"><picture>{cel}<img src="/assets/img/fundos/{nome}-1600.webp" '
+            f'srcset="/assets/img/fundos/{nome}-960.webp 960w, /assets/img/fundos/{nome}-1600.webp 1600w" sizes="100vw" '
+            f'alt="" width="1600" height="900"{lz} decoding="async"></picture></div>')
 
 
 def cta(rotulo="Falar com o escritório", c="cta", a="", tipo="pri"):
@@ -145,7 +160,7 @@ def pagina(titulo, desc, corpo, rota="/", preload="", robots=None, casca=True, e
   <div class="rod__col"><h2>Áreas</h2><ul>{"".join(f'<li><a href="/{a["slug"]}">{e(a["nome"])}</a></li>' for a in AREAS)}</ul></div>
   <div class="rod__col"><h2>Contato</h2><ul><li><a href="/obrigado?c=rodape">WhatsApp {e(TEL_VER)}</a></li><li>{CIDADE}</li><li><a href="/#duvidas">Dúvidas frequentes</a></li><li><a href="/privacidade">Política de privacidade</a></li></ul></div>
 </div><div class="wrap rod__fim"><span>© {date.today().year} {NOME}.</span><span>Conteúdo informativo. Não substitui a análise do seu caso por um advogado.</span></div></footer>
-<a class="zap" href="/obrigado?c=flutuante" aria-label="Falar com o escritório pelo WhatsApp">{ZAP}<span>Falar com o escritório</span></a>''' if casca else ""
+<a class="zap" href="/obrigado?c=flutuante" aria-label="Falar com o escritório pelo WhatsApp">{ZAP}</a>''' if casca else ""
     return f'''<!doctype html>
 <html lang="pt-BR">
 <head>
@@ -179,13 +194,14 @@ def pagina(titulo, desc, corpo, rota="/", preload="", robots=None, casca=True, e
 </html>'''
 
 
-def capa(h1, p, ctas, marca=False, area=""):
-    """Topo de todas as páginas: o texto no centro, o Luiz à esquerda sobre o F e a Ludmilla à direita sobre o D."""
+def capa(h1, p, ctas, marca=False, area="", img="inicio"):
+    """Topo de todas as páginas: o texto no centro, a Ludmilla (Ferreira) à esquerda sobre o F e o Luiz (Dutra) à direita sobre o D."""
     lockup = (f'<div class="capa__marca">{nome_svg("capa__nome")}<span>Advogados</span></div>' if marca else "")
     return f'''<section class="capa{" capa--area" if area else ""}" id="inicio">
+  {fundo(img, "capa__fundo", lazy=False)}
   <div class="capa__palco" aria-hidden="true">
-    <div class="lado lado--l">{letra("F", "letra")}<div class="lado__luz"></div>{foto("luiz-recorte", "", "(max-width:1000px) 54vw, 34vw", lazy=False, larguras=(560, 900), classe="lado__foto", sufixo="h")}</div>
-    <div class="lado lado--r">{letra("D", "letra")}<div class="lado__luz"></div>{foto("ludmilla-recorte", "", "(max-width:1000px) 52vw, 30vw", lazy=False, larguras=(560, 900), classe="lado__foto", sufixo="h")}</div>
+    <div class="lado lado--l">{letra("F", "letra")}<div class="lado__luz"></div>{foto("ludmilla-recorte", "", "(max-width:1060px) 61vw, 32vw", lazy=False, larguras=(560, 900), classe="lado__foto", sufixo="h")}</div>
+    <div class="lado lado--r">{letra("D", "letra")}<div class="lado__luz"></div>{foto("luiz-recorte", "", "(max-width:1060px) 82vw, 44vw", lazy=False, larguras=(560, 900), classe="lado__foto", sufixo="h")}</div>
   </div>
   <div class="wrap capa__txt">
     {lockup}
@@ -193,6 +209,18 @@ def capa(h1, p, ctas, marca=False, area=""):
     {f'<p>{e(p)}</p>' if p else ''}
     <div class="ctas">{ctas}</div>
   </div>
+</section>'''
+
+
+def equipe(ctas, id_=""):
+    """Quem cuida do seu caso: o texto no centro e os dois recortes nas laterais, como no topo (Ludmilla no F, Luiz no D)."""
+    lados = "".join(f'<figure class="eq eq--{lado}">{letra(l, "letra")}{foto(f"{f}-recorte-claro", f"{n}, {papel.lower()}", "(max-width:1060px) 70vw, 34vw" if f == "ludmilla" else "(max-width:1060px) 88vw, 46vw", larguras=(560, 900), classe="eq__foto", sufixo="h")}'
+                    f'<figcaption class="eq__nome"><b>{e(n)}</b><span>{e(papel)} · {e(o)}</span></figcaption></figure>'
+                    for lado, l, (n, papel, o, f) in (("l", "F", SOCIOS[0]), ("r", "D", SOCIOS[1])))
+    return f'''<section class="sec equipe" data-final{f' id="{id_}"' if id_ else ""}>
+  <div class="wrap equipe__txt rv"><h2>{e(ESC["sobre_h2"])}</h2><div class="equipe__p">{"".join(f"<p>{e(p)}</p>" for p in ESC["sobre"])}</div>
+    <div class="ctas">{ctas}</div></div>
+  <div class="equipe__palco">{lados}</div>
 </section>'''
 
 
@@ -207,11 +235,11 @@ def schema_escritorio(extra=None):
 
 def preload_recortes():
     return ('<link rel="preload" as="image" imagesrcset="/assets/img/fotos/luiz-recorte-560.webp 444w, /assets/img/fotos/luiz-recorte-900.webp 714w" '
-            'imagesizes="(max-width:1000px) 54vw, 34vw" fetchpriority="high">')
+            'imagesizes="(max-width:1060px) 82vw, 44vw" fetchpriority="high">')
 
 
 def final_html(h2, p, c, a="", outras=""):
-    return f'''<section class="sec escuro final" data-final>{letra("F&D", "letreiro")}<div class="wrap">
+    return f'''<section class="sec escuro final" data-final>{fundo(a or "inicio", "sec__fundo")}{letra("F&D", "letreiro")}<div class="wrap">
   <h2 class="rv">{e(h2)}</h2>{f'<p class="rv" data-d="1">{e(p)}</p>' if p else ""}
   <div class="ctas rv" data-d="2">{cta(POR_SLUG[a]["cta"] if a else "Falar com o escritório", c, a)}</div>{outras}
 </div></section>'''
@@ -223,8 +251,6 @@ def home():
     indice = "".join(f'''<li class="rv"><a href="/{a["slug"]}"><span class="indice__n">{i + 1:02d}</span><span class="indice__nome">{e(a["nome"])}</span>
       <span class="indice__txt">{e(a["card"])}</span><span class="indice__seta">{SETA}</span></a></li>''' for i, a in enumerate(AREAS))
     difs = "".join(f'<li class="dif rv" data-d="{i % 5}">{numeral(i + 1)}<h3>{e(t)}</h3><p>{e(d)}</p></li>' for i, (t, d) in enumerate(ESC["diferenciais"]))
-    socios = "".join(f'''<figure class="rv" data-d="{i + 1}"><div class="socio__foto">{foto(f, f"{n}, {papel.lower()}", "(max-width:760px) 45vw, 22vw")}</div>
-      <figcaption><b>{e(n)}</b><span>{e(papel)} · {e(o)}</span></figcaption></figure>''' for i, (n, papel, o, f) in enumerate(SOCIOS))
     passos = "".join(f'<li class="passo rv" data-d="{i}"><b>{i + 1:02d}</b><h3>{e(t)}</h3><p>{e(d)}</p></li>' for i, (t, d) in enumerate(ESC["como"]))
     corpo = f'''
 {capa(f'<span class="so-leitor">{NOME}: </span>{e(HERO_H1)}', '',
@@ -235,36 +261,34 @@ def home():
   <div class="seletor__grade">{seletor}</div>
 </div></section>
 
-<section class="sec areia" id="areas"><div class="wrap">
-  <div class="indice-cab rv"><h2>{e(ESC["areas_h2"])}</h2>{cta("Falar com o escritório", "areas")}</div>
+<section class="sec areia areas-sec" id="areas"><div class="wrap">
+  <h2 class="cab-centro rv">{e(ESC["areas_h2"])}</h2>
   <ol class="indice">{indice}</ol>
+  <div class="ctas fim-centro rv">{cta("Falar com o escritório", "areas")}</div>
 </div></section>
 
-<section class="sec escuro manifesto-sec"><div class="wrap">
+<section class="sec escuro manifesto-sec com-fundo">{fundo("manifesto", "sec__fundo sec__fundo--fixo")}<div class="wrap">
   <p class="manifesto" data-manifesto>{palavras(ESC["manifesto"])}</p>
   <div class="ctas">{cta("Contar o que está acontecendo", "manifesto")}</div>
   <ol class="difs">{difs}</ol>
 </div></section>
 
-<section class="sec" id="escritorio"><div class="wrap escr">
-  <div class="escr__txt rv"><h2>{e(ESC["sobre_h2"])}</h2>{"".join(f"<p>{e(p)}</p>" for p in ESC["sobre"])}
-    <div class="ctas">{cta("Falar com o escritório", "escritorio")}</div></div>
-  <div class="socios">{socios}</div>
-</div></section>
+{equipe(cta("Falar com o escritório", "escritorio"), "escritorio")}
 
 <section class="sec areia" id="como" data-passos><div class="wrap">
-  <div class="passos-cab rv"><h2>{e(ESC["como_h2"])}</h2>{cta("Começar pelo WhatsApp", "como")}</div>
+  <h2 class="cab-centro rv">{e(ESC["como_h2"])}</h2>
   <ol class="passos"><span class="passos__linha" aria-hidden="true"></span>{passos}</ol>
+  <div class="ctas fim-centro rv">{cta("Começar pelo WhatsApp", "como")}</div>
 </div></section>
 
-<section class="sec escuro"><div class="wrap alcance">
+<section class="sec escuro alcance-sec com-fundo">{fundo("alcance", "sec__fundo")}<div class="wrap alcance">
   <div class="alcance__txt rv"><h2>{e(ESC["alcance_h2"])}</h2><p>{e(ESC["alcance_p"])}</p>
     <div class="ctas">{cta("Falar com o escritório", "alcance")}</div></div>
   <div class="rv" data-d="1">{mapa_svg()}</div>
 </div></section>
 
 <section class="sec" id="duvidas"><div class="wrap faq">
-  <div class="faq__cab rv"><h2>Dúvidas frequentes</h2>{cta("Tirar uma dúvida", "faq")}</div>
+  <h2 class="cab-centro rv">Dúvidas frequentes</h2>
   <div class="faq__lista rv" data-d="1">{faq_html(ESC["faq"])}</div>
 </div></section>
 
@@ -285,11 +309,9 @@ def area(a):
   <div class="docs__cab rv"><h2>{e(a["documentos_h2"])}</h2><div class="ctas">{cta(a["cta"], "documentos", s)}</div></div>
   <ol class="docs__lista rv" data-d="1">{"".join(f"<li>{e(d)}</li>" for d in a["documentos"])}</ol>
 </div></section>''' if a["documentos"] else "")
-    socios = "".join(f'''<figure class="rv" data-d="{i + 1}"><div class="socio__foto">{foto(f, f"{n}, {papel.lower()}", "(max-width:760px) 45vw, 20vw")}</div>
-      <figcaption><b>{e(n)}</b><span>{e(papel)} · {e(o)}</span></figcaption></figure>''' for i, (n, papel, o, f) in enumerate(SOCIOS))
     outras = "".join(f'<a href="/{o["slug"]}"><span>{e(o["nome"])}</span>{SETA}</a>' for o in AREAS if o["slug"] != s)
     corpo = f'''
-{capa(e(a["hero_h1"]), a["hero_p"], cta(a["cta"], "hero", s) + f'<a class="btn btn--linha" href="/"><span>Conhecer o escritório</span>{SETA}</a>', area=s)}
+{capa(e(a["hero_h1"]), a["hero_p"], cta(a["cta"], "hero", s) + f'<a class="btn btn--linha" href="/"><span>Conhecer o escritório</span>{SETA}</a>', area=s, img=s)}
 
 <section class="sec areia"><div class="wrap sit">
   <div class="sit__cab rv"><h2>{e(a["situacoes_h2"])}</h2>{cta(a["cta"], "situacoes", s)}</div>
@@ -297,20 +319,17 @@ def area(a):
 </div></section>
 
 <section class="sec escuro" data-passos><div class="wrap">
-  <div class="passos-cab rv"><h2>{e(a["atuacao_h2"])}</h2>{cta(a["cta"], "atuacao", s)}</div>
+  <h2 class="cab-centro rv">{e(a["atuacao_h2"])}</h2>
   <ol class="passos"><span class="passos__linha" aria-hidden="true"></span>{passos}</ol>
+  <div class="ctas fim-centro rv">{cta(a["cta"], "atuacao", s)}</div>
 </div></section>
 
 {docs}
 
-<section class="sec areia"><div class="wrap cuida">
-  <div class="cuida__txt rv"><h2>{e(ESC["sobre_h2"])}</h2>{"".join(f"<p>{e(p)}</p>" for p in ESC["sobre"])}
-    <div class="ctas">{cta(a["cta"], "quem", s)}<a class="btn btn--linha" href="/#escritorio"><span>Conhecer o escritório</span>{SETA}</a></div></div>
-  <div class="socios">{socios}</div>
-</div></section>
+{equipe(cta(a["cta"], "quem", s) + f'<a class="btn btn--linha" href="/#escritorio"><span>Conhecer o escritório</span>{SETA}</a>')}
 
 <section class="sec"><div class="wrap faq">
-  <div class="faq__cab rv"><h2>Dúvidas sobre {e(a["curto"].lower() if s not in ("inventario",) else "inventário")}</h2>{cta("Tirar uma dúvida", "faq", s)}</div>
+  <h2 class="cab-centro rv">Dúvidas sobre {e(a["nome"].lower())}</h2>
   <div class="faq__lista rv" data-d="1">{faq_html(a["faq"])}</div>
 </div></section>
 

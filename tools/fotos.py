@@ -45,6 +45,13 @@ def retratos():
         # contrai a borda (some a franja branca do fundo antigo) e suaviza 1 px
         a = im.getchannel("A").filter(ImageFilter.MinFilter(contrai)).filter(ImageFilter.GaussianBlur(1.1))
         im.putalpha(a)
+        # versão para fundo claro (seção "Quem cuida do seu caso"): só a contração, sem escurecer a borda
+        claro = im.crop(im.getbbox())
+        claro = claro.crop((0, 0, claro.width, round(claro.height * busto)))
+        for alvo in (560, 900):
+            alt = min(alvo, claro.height)
+            claro.resize((round(claro.width * alt / claro.height), alt), Image.LANCZOS).save(
+                OUT / f"{nome}-claro-{alvo}.webp", "WEBP", quality=82, method=6)
         # borda semitransparente puxada para o escuro: o que restou do fundo claro não vira halo sobre o grafite
         import numpy as np
         px = np.asarray(im).astype(np.float32)

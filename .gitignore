@@ -2,3 +2,5 @@
 __pycache__/
 # originais das fotos (vieram pelo WhatsApp do cliente) e os recortes de trabalho
 assets/src/fotos/
+# originais gerados no ChatGPT (o site usa os WebP de assets/img/fundos)
+assets/src/geradas/
