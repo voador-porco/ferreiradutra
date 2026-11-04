@@ -10,7 +10,7 @@ from fontTools.pens.svgPathPen import SVGPathPen
 from fontTools.pens.transformPen import TransformPen
 from fontTools.varLib.instancer import instantiateVariableFont
 
-FONTES = Path.home() / "Library/Fonts"
+FONTES = Path(__file__).resolve().parent / "fontes"     # Cormorant Garamond (licença OFL), vai junto com o projeto
 _cache = {}
 
 

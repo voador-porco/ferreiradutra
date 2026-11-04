@@ -10,6 +10,7 @@ from playwright.async_api import async_playwright
 
 RAIZ = Path(__file__).resolve().parent.parent
 CH = os.path.expanduser("~/Library/Caches/ms-playwright/chromium_headless_shell-1234/chrome-headless-shell-mac-arm64/chrome-headless-shell")
+CH = CH if os.path.exists(CH) else None   # sem esse caminho, usa o Chromium padrão do Playwright
 
 
 async def main():

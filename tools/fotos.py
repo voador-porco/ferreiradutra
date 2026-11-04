@@ -12,12 +12,13 @@ from PIL import Image, ImageFilter
 RAIZ = Path(__file__).resolve().parent.parent
 SRC, OUT, IMG = RAIZ / "assets/src/fotos", RAIZ / "assets/img/fotos", RAIZ / "assets/img"
 CH = os.path.expanduser("~/Library/Caches/ms-playwright/chromium_headless_shell-1234/chrome-headless-shell-mac-arm64/chrome-headless-shell")
+CH = CH if os.path.exists(CH) else None   # sem esse caminho, usa o Chromium padrão do Playwright
 sys.path.insert(0, str(RAIZ / "tools"))
 
 # (arquivo, nome, topo do recorte 4:5 em fração da altura que sobra)
 # A foto da Ludmilla veio cortada na testa e nos braços: o Firefly completou (ludmilla-expandida.jpg).
 RETRATOS = [("luiz.jpg", "luiz", .32), ("ludmilla-expandida.jpg", "ludmilla", .05)]
-# Recortes sem fundo para o topo (Vision da Apple: swift ~/dev/cazetv-conceito/tools/lift.swift entrada saida.png)
+# Recortes sem fundo para o topo (Vision da Apple, só no Mac: swift tools/lift.swift entrada.jpg saida.png)
 # (arquivo, nome, altura do busto em fração do recorte, contração da borda em px, como "contrair seleção" do Photoshop)
 # O Luiz vem cortado no tórax para ficar na mesma proporção da Ludmilla (os dois em busto).
 RECORTES = [("luiz-recorte.png", "luiz-recorte", .62, 9), ("ludmilla-recorte.png", "ludmilla-recorte", 1, 5)]
