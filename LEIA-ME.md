@@ -11,7 +11,7 @@ O projeto foi revisado seção por seção e cada detalhe foi aprovado. Só mude
 ## Passo 1: fazer a cópia
 
 ```bash
-git clone https://github.com/leonardoferreirr/ferreiradutra.git novo-site
+git clone https://github.com/voador-porco/ferreiradutra.git novo-site
 cd novo-site
 git remote remove origin
 pip3 install pillow fonttools

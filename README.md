@@ -31,7 +31,7 @@ Estático, sem dependências: `python3 build.py` gera as páginas e a ponte `/ob
 `python3 tools/serve.py 4235`
 
 ## Para usar como base de outro site
-1. `git clone https://github.com/leonardoferreirr/ferreiradutra.git novo-site`, e aponte o `origin` para um repositório seu (`git remote set-url origin <url>`). Este repositório não aceita push de terceiros.
+1. `git clone https://github.com/voador-porco/ferreiradutra.git novo-site`, e aponte o `origin` para um repositório seu (`git remote set-url origin <url>`). Este repositório não aceita push de terceiros.
 2. Dependências: `pip3 install pillow fonttools`. Para regerar fotos e a imagem de compartilhamento, também `pip3 install playwright numpy` e `playwright install chromium`. O recorte sem fundo (`tools/lift.swift`) só roda no Mac.
 3. Textos: `conteudo.py`. Nome, WhatsApp, sócios e domínio: início do `build.py`. As letras F e D estão na função `capa()` e em `equipe()`; o nome no cabeçalho é a constante `_NOME`.
 4. Fotos: troque os arquivos em `assets/src/fotos/` e rode `python3 tools/fotos.py`. Fundos: `assets/src/geradas/` e `python3 tools/fundos.py`.
