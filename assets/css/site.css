@@ -54,7 +54,7 @@ h3{font-weight:400;line-height:1.3;letter-spacing:-.01em}
 .marca{display:flex;flex-direction:column;align-items:flex-start;gap:.15rem;flex:none}
 .marca__nome{height:1.7rem;width:auto;fill:currentColor}
 .marca span{font-size:.62rem;font-weight:500;letter-spacing:.42em;text-transform:uppercase;color:var(--bronze-cl);padding-left:.12rem}
-.nav{display:flex;align-items:center;gap:1.8rem;margin-left:auto;font-size:.9rem;color:var(--claro-2)}
+.nav{display:flex;align-items:center;gap:1.8rem;margin-inline:auto;font-size:.9rem;color:var(--claro-2)}
 .nav>a,.nav__bt{transition:color .3s}
 .nav>a:hover,.nav__bt:hover{color:var(--areia)}
 .nav__areas{position:relative}
@@ -411,4 +411,10 @@ h3{font-weight:400;line-height:1.3;letter-spacing:-.01em}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
   .js .rv{opacity:1;transform:none}
   .manifesto span{opacity:1}
+}
+
+/* celular: botões empilhados sempre na mesma largura (a do mais largo) */
+@media (max-width:600px){
+  .ctas{display:grid;grid-template-columns:minmax(0,max-content);width:fit-content;max-width:100%;margin-inline:auto;}
+  .ctas>*{width:100%;justify-content:center;text-align:center}
 }
