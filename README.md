@@ -1,5 +1,7 @@
 # Ferreira e Dutra Advogados
 
+> **Vai copiar este site?** Comece pelo [LEIA-ME.md](LEIA-ME.md).
+
 Site do escritório Ferreira e Dutra Advogados (Uberlândia, MG): uma página central e uma página por área do direito, cada uma pronta para receber tráfego pago.
 Estático, sem dependências: `python3 build.py` gera as páginas e a ponte `/obrigado`, que leva ao WhatsApp com a mensagem da área.
 
